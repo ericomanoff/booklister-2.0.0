@@ -34,7 +34,7 @@ class BookController extends Controller
       public function markAsRead(Book $book)
       {
         $book->is_read = true;
-        $book->save();
+        $book->update();
 
         return response()->json($book);
       }
