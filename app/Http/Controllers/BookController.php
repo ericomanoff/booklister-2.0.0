@@ -18,6 +18,7 @@ class BookController extends Controller
         $booklist = BookList::findOrFail($id);
         $book = Book::create(array_merge($request->all(), ['order' => $booklist->books->count()]));
         $book->booklist()->associate($booklist);
+        $book->save();
         return response()->json($book, 201);
       }
 
