@@ -24,10 +24,10 @@ class BookController extends Controller
           'title' => $validatedData['title'],
           'author' => $validatedData['author'],
           'num_pages' => $request->input('num_pages', null),
-          'rating' => $rating->input('rating', null),
+          'rating' => $request->input('rating', null),
           'order' => $listSize
         ]);
-        
+
         return response()->json($book, 201);
       }
 
