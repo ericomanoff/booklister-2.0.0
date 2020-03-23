@@ -36,7 +36,7 @@ class BookController extends Controller
         $book->is_read = true;
         $book->update();
 
-        return response()->json($book, 204);
+        return response()->json($book);
       }
 
       public function show($bookId)
