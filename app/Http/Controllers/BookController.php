@@ -11,23 +11,13 @@ class BookController extends Controller
     public function store(Request $request, $id)
       {
 
-        $validatedData = $request->validate([
+        $request->validate([
           'title' => 'required',
           'author' => 'required'
         ]);
-
-        $booklist = BookList::find($id);
-        $listSize = $booklist->books->count();
-
-        $book = Book::create([
-          'book_list_id' => $id,
-          'title' => $validatedData['title'],
-          'author' => $validatedData['author'],
-          'num_pages' => $request->input('num_pages', null),
-          'rating' => $rating->input('rating', null),
-          'order' => $listSize
-        ]);
-
+        $booklist = BookList::findOrFail($id);
+        $book = Book::create(array_merge($request->all(), ['order' => $booklist->books->count()]));
+        $book->booklist()->associate($booklist);
         return response(201)->json($book);
       }
 
