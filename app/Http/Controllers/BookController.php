@@ -18,7 +18,7 @@ class BookController extends Controller
         $booklist = BookList::findOrFail($id);
         $book = Book::create(array_merge($request->all(), ['order' => $booklist->books->count()]));
         $book->booklist()->associate($booklist);
-        return response(201)->json($book);
+        return response()->json($book, 201);
       }
 
       public function markAsRead(Book $book)
@@ -26,7 +26,7 @@ class BookController extends Controller
         $book->is_read = true;
         $book->update();
 
-        return response(204)->json($book);
+        return response()->json($book, 204);
       }
 
       public function show($bookId)
@@ -53,8 +53,6 @@ class BookController extends Controller
         
         //save new index to the books order attribute
         foreach ($reorderedBookList as $key => $value) {
-          // print '$key: ' . $key . "\n"; 
-          // print '$value: ' . $value['id'] . "\n";
           $book = Book::find($value['id']);
           $book->order = $key;
           $book->save();
