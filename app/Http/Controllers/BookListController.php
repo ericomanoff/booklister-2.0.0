@@ -25,7 +25,7 @@ class BookListController extends Controller
         'description' => $validatedData['description'],
       ]);
 
-      return response()->json('BookList created!');
+      return response(201)->json($booklist);
     }
 
     public function show($id)

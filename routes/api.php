@@ -21,8 +21,9 @@ Route::get('booklists/{id}', 'BookListController@show');
 Route::post('booklists/{id}/books', 'BookController@store');
 Route::put('booklists/{id}/books', 'BookController@reorder');
 Route::delete('booklists/{id}/book/{bookId}', 'BookController@delete');
+
 Route::get('books/{bookId}', 'BookController@show');
-Route::put('books/{bookId}', 'BookController@markAsRead');    
+Route::put('books/{bookId}/read', 'BookController@markAsRead');    
 
 
 Route::middleware('auth:api')->get('/user', function (Request $request) {

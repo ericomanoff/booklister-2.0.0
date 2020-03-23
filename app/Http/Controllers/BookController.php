@@ -19,19 +19,16 @@ class BookController extends Controller
         $booklist = BookList::find($id);
         $listSize = $booklist->books->count();
 
-        //maybe here hit good reads api to check for rating
-        $rating = null;
-
         $book = Book::create([
           'book_list_id' => $id,
           'title' => $validatedData['title'],
           'author' => $validatedData['author'],
           'num_pages' => $request->input('num_pages', null),
-          'rating' => $rating,
+          'rating' => $rating->input('rating', null),
           'order' => $listSize
         ]);
 
-        return response()->json($book);
+        return response(201)->json($book);
       }
 
       public function markAsRead(Book $book)
@@ -39,7 +36,7 @@ class BookController extends Controller
         $book->is_read = true;
         $book->update();
 
-        return response()->json('Book updated!');
+        return response(204)->json($book);
       }
 
       public function show($bookId)
